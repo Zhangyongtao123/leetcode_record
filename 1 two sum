@@ -49,6 +49,8 @@ class Solution {
  //注意使用find()函数确定某个键值在hash表中是否存在
  //std::map内部使用红黑树实现，内部元素是有序的，适合有顺序要求的问题。
  //std::unordered_map内部使用hash实现，内部元素无序，适合查找问题。
+ //注意即使输入数组中有两个一样的元素也没关系（比如target =2, 有两个元素1），因为根据题目条件只可能一样的元素至多存在两个，而我们是通过遍历确定其中一个元素的下标，
+ //	另一个下标通过map确定，只要这两个下标不同就满足要求。这可能也是这个题目的特殊性所在
  class Solution2 {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
