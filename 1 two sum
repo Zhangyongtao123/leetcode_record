@@ -1,4 +1,4 @@
-//挨个遍历确定第一个数，然后二分查找确定第二个数
+//挨个遍历确定第一个数，然后二分查找确定第二个数，O(nlogn)
 class Solution {
  public:
 	 vector<int> twoSum(vector<int>& nums, int target) {
