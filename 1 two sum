@@ -1,4 +1,4 @@
-//挨个遍历确定第一个数，然后二分查找确定第二个数，O(nlogn)
+//方法一, 挨个遍历确定第一个数，然后二分查找确定第二个数，O(nlogn)
 class Solution {
  public:
 	 vector<int> twoSum(vector<int>& nums, int target) {
@@ -44,3 +44,24 @@ class Solution {
 		 return -1;
 	 }
  };
+ 
+ //方法二，用hash来做，时间复杂度为O(n)。
+ //注意使用find()函数确定某个键值在hash表中是否存在
+ //std::map内部使用红黑树实现，内部元素是有序的，适合有顺序要求的问题。
+ //std::unordered_map内部使用hash实现，内部元素无序，适合查找问题。
+ class Solution2 {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> map;
+        for(size_t i = 0; i < nums.size(); ++i) {
+            map[nums[i]] = i;
+        }
+        for(int i = 0; i < nums.size(); ++i) {
+            int target2 = target -nums[i]; 
+            if(map.find(target2)!= map.end() && i != map[target2]) {
+                return {i, map[target2]};
+            }
+        }
+        return vector<int>();
+    }
+};
