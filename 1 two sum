@@ -1,0 +1,46 @@
+//挨个遍历确定第一个数，然后二分查找确定第二个数
+class Solution {
+ public:
+	 vector<int> twoSum(vector<int>& nums, int target) {
+		 vector<std::pair<int, int>> new_nums;
+		 vector<int> result(2, -1);
+		 for (int i = 0; i<nums.size(); i++) {
+			 new_nums.push_back(std::make_pair(nums[i], i));
+		 }
+		 std::sort(new_nums.begin(), new_nums.end(), cmp);
+		 int target2;
+		 for (int i = 0; i<new_nums.size(); i++) {
+			 result[0] = new_nums[i].second;
+			 target2 = target - new_nums[i].first;
+			 int id = binary_search(new_nums, i + 1, nums.size() - 1, target2);
+			 if (id != -1) {
+				 result[1] = id;
+				 return result;
+			 }
+		 }
+		 return result;
+	 }
+ private:
+	 static bool cmp(std::pair<int, int> &a, std::pair<int, int> &b) {
+		 return a.first<b.first;
+	 }
+
+	 int binary_search(vector<std::pair<int, int>> new_nums, int begin, int end, int target) {
+		 while (begin <= end) {
+			 if (new_nums[begin].first>target || new_nums[end].first<target) {
+				 return -1;
+			 }
+			 int mid = (begin + end) / 2;
+			 if (new_nums[mid].first == target) {
+				 return new_nums[mid].second;
+			 }
+			 else if (new_nums[mid].first > target) {
+				 end = mid - 1;
+			 }
+			 else {
+				 begin = mid + 1;
+			 }
+		 }
+		 return -1;
+	 }
+ };
